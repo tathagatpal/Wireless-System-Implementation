@@ -1,8 +1,9 @@
+%Sampling Frequency
 fs = 30;
 
-freq = 100;
-A = 1;
-phase = 0;
+freq = 100; %Freq of sine wave
+A = 1;      %Amplitude 
+phase = 0;  %Phase
 t = 0:1/fs:1;
 
 x = A*sin(2*pi*freq*t + phase);
@@ -15,6 +16,7 @@ title("Sine wave, with Amplitude = " + A + " unit, frequency " ...
     + freq + "Hz, and phase = " + rad2deg(phase) + " degrees");
 
 
+%Frequency Domain
 length_x=length(x); 
 n_points = 1024;
 Y  = fft(x,n_points);
