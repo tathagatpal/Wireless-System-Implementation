@@ -1,11 +1,11 @@
-% image = imread('input_image.jpg');
 image = imread('assign1.jpg');
-
 %Input image of size 64x64
 
+%Converting image to bits
 stream = reshape((dec2bin(image,8)-'0').',1,[]);
 [m, n] = size(image);
 
+%Shifting the MSB to left
 for i = 1:8:length(stream)-8
     stream(i:i+7) = stream(i+7 : -1: i);
 end
@@ -30,7 +30,6 @@ if choice == 1
 
     %Time domain
     %carrier frequency of 1 Hz
-    
     t = 0:0.01:1;
     fc = 1;
     time = 0:0.01:24+0.23;
@@ -78,7 +77,8 @@ if choice == 1
     high_snr = 25;
     bpsk_mod = awgn(bpsk_mod, high_snr);
     bpsk_demod = pskdemod(bpsk_mod, 2, pi);
-
+    
+    %Image reconstruction
     for i = 1:8:length(bpsk_demod)-8
         bpsk_demod(i:i+7) = bpsk_demod(i+7 : -1: i);
     end
@@ -94,7 +94,7 @@ if choice == 1
     title("Reconstructed image using BPSK, SNR = " + high_snr);
 
 
-    low_snr = 35;
+    low_snr = 5;
     bpsk_mod = awgn(bpsk_mod, low_snr);
     bpsk_demod = qamdemod(bpsk_mod, 2);
 
